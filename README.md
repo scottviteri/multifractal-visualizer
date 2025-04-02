@@ -2,7 +2,8 @@
 
 A GPU-accelerated fractal visualization tool that showcases the interplay between different fractal systems separated by a rotating dividing line.
 
-![Sample Visualization](output/multifractal_visualization.gif)
+![Rotating Vicsek-Koch Animation](output/rotating_vicsek_koch.gif)
+*Animated visualization of the rotating boundary between Vicsek and Koch fractal systems*
 
 ## Features
 
@@ -106,9 +107,6 @@ When committing this project to GitHub:
 ## Images
 
 Sample fractal visualizations are included in the repository's `output` folder:
-
-![Rotating Vicsek-Koch](output/rotating_vicsek_koch_500.png)
-*Static snapshot of the rotating boundary visualization at 500 iterations*
 
 ![Vicsek-Koch](output/vicsek_koch_500.png)
 *Vicsek and Koch fractal systems at 500 iterations*
