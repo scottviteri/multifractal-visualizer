@@ -1,0 +1,31 @@
+# Build artifacts
+multifractal_visualizer
+*.o
+*.obj
+*.exe
+*.out
+*.app
+
+# Generated images
+*.png
+*.jpg
+*.bmp
+
+# GLAD files (should be generated per user)
+src/glad.c
+include/glad/
+
+# Build directories
+bin/
+build/
+obj/
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS specific files
+.DS_Store
+Thumbs.db 
