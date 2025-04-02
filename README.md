@@ -105,14 +105,11 @@ When committing this project to GitHub:
    ```
 
 ## Images
-
 Sample fractal visualizations are included in the repository's `output` folder:
-
-![Vicsek-Koch](output/vicsek_koch_500.png)
-*Vicsek and Koch fractal systems at 500 iterations*
-
 ![Sierpinski-Carpet](output/sierpinski_triangle_carpet_500.png)
 *Sierpinski triangle and carpet fractal systems at 500 iterations*
+![Vicsek-Koch](output/vicsek_koch_500.png)
+*Vicsek and Koch fractal systems at 500 iterations*
 
 ## License
 
