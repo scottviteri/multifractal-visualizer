@@ -6,11 +6,6 @@ multifractal_visualizer
 *.out
 *.app
 
-# Generated images
-*.png
-*.jpg
-*.bmp
-
 # GLAD files (should be generated per user)
 src/glad.c
 include/glad/

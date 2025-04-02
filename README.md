@@ -2,7 +2,7 @@
 
 A GPU-accelerated fractal visualization tool that showcases the interplay between different fractal systems separated by a rotating dividing line.
 
-![Sample Visualization](rotating_vicsek_koch_500.png)
+![Sample Visualization](output/multifractal_visualization.gif)
 
 ## Features
 
@@ -99,10 +99,22 @@ When committing this project to GitHub:
 3. Add the following to your `.gitignore`:
    ```
    multifractal_visualizer
-   *.png
    src/glad.c
    include/glad/
    ```
+
+## Images
+
+Sample fractal visualizations are included in the repository's `output` folder:
+
+![Rotating Vicsek-Koch](output/rotating_vicsek_koch_500.png)
+*Static snapshot of the rotating boundary visualization at 500 iterations*
+
+![Vicsek-Koch](output/vicsek_koch_500.png)
+*Vicsek and Koch fractal systems at 500 iterations*
+
+![Sierpinski-Carpet](output/sierpinski_triangle_carpet_500.png)
+*Sierpinski triangle and carpet fractal systems at 500 iterations*
 
 ## License
 
