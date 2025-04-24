@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -std=c++11 -Wall -Wextra
+CFLAGS = -std=c++17 -Wall -Wextra
 INCLUDES = -I./include -I./external
 LDFLAGS = -lGL -lm
 
@@ -33,6 +33,10 @@ ensure_directories:
 # Run the application
 run: all
 	./$(TARGET)
+
+# Run the application with NVIDIA GPU (prime-run)
+run-prime: all
+	prime-run ./$(TARGET)
 
 # Download dependencies (for first-time setup)
 setup:

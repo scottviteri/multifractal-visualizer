@@ -2,24 +2,71 @@
 
 A GPU-accelerated fractal visualization tool that showcases the interplay between different fractal systems separated by a rotating dividing line.
 
-![Rotating Vicsek-Koch Animation](output/rotating_vicsek_koch.gif)
-*Animated visualization of the rotating boundary between Vicsek and Koch fractal systems*
+![Probabilistic Fractal Animation](output/rotating_vicsek_koch.gif)
+*Animated visualization of the probabilistic transition between Sierpinski and Koch fractal systems*
 
 ## Features
 
 - Real-time generation of fractals using OpenGL compute shaders
 - Bit-packed representation for efficient memory usage
-- Interactive boundary between two fractal systems that rotates over time
+- Fractal system selection with two modes:
+  - **Probabilistic Mode**: Random selection between fractal systems based on probability
+  - **Deterministic Mode**: Orderly pattern of fractal selections based on rational approximation of probability
 - Automatic image export at configurable iterations
 - Full GPU acceleration for all fractal calculations
 
 ## Fractal Systems
 
-This visualization alternates between:
-- **Vicsek Fractal**: A cross-shaped fractal with five-fold symmetry
-- **Koch Curve**: A triangular fractal pattern similar to snowflake formation
+This visualization combines two fractal systems with distinct phases of selection:
+- **Sierpinski Triangle**: A classic self-similar triangular fractal pattern
+- **Second Fractal**: Configurable between:
+  - **Barnsley Fern**: A natural-looking fractal that resembles a fern leaf
+  - **Sierpinski Carpet**: A square-based fractal with a recursive pattern of holes
 
-The boundary between these systems rotates over time, creating an interesting interplay between the two fractal types.
+The second fractal can be easily switched by changing the `secondFractalType` variable in the code:
+```cpp
+// Set which fractal to use as the second shape
+// 0 = Barnsley Fern, 1 = Sierpinski Carpet
+int secondFractalType = 1; // Change this value to switch
+```
+
+### Fractal Selection Modes
+
+By default, the program uses a deterministic pattern for fractal selection. This can be controlled with the `useDeterministicMode` flag:
+
+```cpp
+// Set to true for deterministic pattern, false for probabilistic selection
+bool useDeterministicMode = true;
+```
+
+#### Deterministic Mode
+
+In deterministic mode, when probability p = a/b (a rational number):
+- For each sequence of b iterations, exactly a iterations will use the second fractal
+- The remaining (b-a) iterations will use the Sierpinski Triangle
+
+For example, with p = 0.5:
+- The pattern becomes [Triangle, SecondFractal, Triangle, SecondFractal, ...]
+- This creates a perfect alternating pattern instead of random 50/50 selection
+
+#### Probabilistic Mode
+
+In the original probabilistic mode, each point has a random chance (based on probability) to use either fractal system.
+
+### Visualization Cycle
+
+The visualization implements a smooth probability cycle that creates a continuous transition between fractal systems:
+
+- **Ramp Up Phase**: Probability gradually increases from 0 to 1.0 during the first half of the cycle
+- **Ramp Down Phase**: Probability gradually decreases from 1.0 back to 0 during the second half
+
+This creates a smooth transition between:
+- Pure Sierpinski triangle (probability = 0.0)
+- Mixed states with varying degrees of the second fractal (intermediate probabilities)
+- Pure second fractal (probability = 1.0)
+- Then back to pure Sierpinski triangle
+
+The probability values are quantized to discrete steps (50 steps by default) to create visible transitions between different mixing ratios while still providing a very fine-grained progression of fractal evolution. Each time the probability value changes, the visualization resets to a fresh starting state with all pixels on, allowing each phase to develop independently from this initial state.
 
 ## Dependencies
 
@@ -74,8 +121,35 @@ make run
 Or directly:
 
 ```bash
-./fractal_visualizer
+./multifractal_visualizer
 ```
+
+#### Running on NVIDIA GPU
+
+If you have a system with both integrated and NVIDIA graphics (Optimus technology), you can use:
+
+```bash
+make run-prime
+```
+
+This will execute the application with `prime-run`, ensuring it runs on the dedicated NVIDIA GPU for better performance.
+
+#### Command Line Options
+
+- **Iteration Offset**: Control which specific iterations of the pattern cycle get displayed
+  ```bash
+  ./multifractal_visualizer --offset 3  # Display iterations at positions 3, 3+n, 3+2n, etc.
+  ```
+  ```bash
+  ./multifractal_visualizer -o 2  # Short form
+  ```
+
+The program uses a "cycles-only" display mode by default, which:
+- Only updates the display after completing a full pattern cycle
+- For a pattern of period n, only iterations 0, n, 2n, 3n, etc. will be displayed
+- Using an offset changes this to display iterations offset, n+offset, 2n+offset, etc.
+- All computations still happen on every iteration, but the display is only updated at cycle boundaries
+- This provides a clearer view of how the fractal evolves after each complete pattern cycle
 
 ## Repository Structure
 
